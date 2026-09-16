@@ -6,8 +6,8 @@ import Foundation
 /// `gpt-image-1` with high input fidelity. Leave it blank (the default) to
 /// use the on-device mock studio, which is fully usable in Simulator.
 enum AppConfig {
-    /// OpenAI API key. **Leave empty** until you paste your own.
-    /// Never commit a real key.
+    /// OpenAI API key. **Leave empty** in App Store / TestFlight archives.
+    /// Paste a key at runtime in Settings (Keychain) instead of compiling one in.
     static let openAIAPIKey = ""
 
     /// Optional override for the Images API base URL.
@@ -24,12 +24,14 @@ enum AppConfig {
     }
 
     static var isAPIKeyPresent: Bool {
-        let trimmed = openAIAPIKey.trimmingCharacters(in: .whitespacesAndNewlines)
-        return !trimmed.isEmpty
+        !resolvedAPIKey.isEmpty
     }
 
+    /// Compile-time key wins (local debug). Otherwise the Keychain value from Settings.
     static var resolvedAPIKey: String {
-        openAIAPIKey.trimmingCharacters(in: .whitespacesAndNewlines)
+        let compiled = openAIAPIKey.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !compiled.isEmpty { return compiled }
+        return APIKeyStore.load() ?? ""
     }
 
     /// Identity-preserving edit prompt. Facial geometry is explicitly off-limits.

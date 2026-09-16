@@ -39,8 +39,8 @@ def check_project_files() -> None:
         fail("project.pbxproj is missing the Xcode header")
     if "rootObject" not in pbx:
         fail("project.pbxproj is missing rootObject")
-    if "PRODUCT_BUNDLE_IDENTIFIER = com.example.headshot" not in pbx:
-        fail("Bundle identifier is not set")
+    if "PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.headshot" not in pbx:
+        fail("Bundle identifier placeholder is not set")
     if "IPHONEOS_DEPLOYMENT_TARGET = 17.0" not in pbx:
         fail("Deployment target should be iOS 17")
     if "INFOPLIST_FILE = Headshot/Info.plist" not in pbx:
@@ -124,6 +124,10 @@ def check_secrets_and_config() -> None:
     if 'static var usesCloudAI: Bool {\n        !forceMockStudio && isAPIKeyPresent\n    }' not in config:
         fail("usesCloudAI must require a present key and not be forced on")
 
+    if "ITSAppUsesNonExemptEncryption" not in info:
+        fail("Info.plist must declare HTTPS-only export compliance")
+    if "UILaunchScreen" not in info:
+        fail("Info.plist must declare a launch screen")
     for key in [
         "NSCameraUsageDescription",
         "NSPhotoLibraryAddUsageDescription",
@@ -132,10 +136,14 @@ def check_secrets_and_config() -> None:
         if key not in info:
             fail(f"Info.plist is missing {key}")
 
+    for rel in ["docs/APP_STORE.md", "docs/COSTS_AND_PRICING.md"]:
+        if not (ROOT / rel).exists():
+            fail(f"Missing {rel}")
+
 
 def check_flow_surface() -> None:
     studio = read(APP / "Studio" / "StudioView.swift")
-    for token in ["Create headshot", "Camera", "Library", "BeforeAfterSlider", "Save", "Share"]:
+    for token in ["Create headshot", "Camera", "Library", "BeforeAfterSlider", "Save", "Share", "SettingsView"]:
         if token not in studio:
             fail(f"StudioView is missing UI for {token!r}")
     model = read(APP / "Studio" / "StudioViewModel.swift")

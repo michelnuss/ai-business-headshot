@@ -64,11 +64,13 @@ def draw_icon(path: Path) -> None:
 SWIFT_FILES = [
     ("HeadshotApp.swift", "HeadshotApp.swift"),
     ("App/AppConfig.swift", "AppConfig.swift"),
+    ("App/APIKeyStore.swift", "APIKeyStore.swift"),
     ("App/StudioPalette.swift", "StudioPalette.swift"),
     ("Studio/StudioPhase.swift", "StudioPhase.swift"),
     ("Studio/StudioView.swift", "StudioView.swift"),
     ("Studio/StudioViewModel.swift", "StudioViewModel.swift"),
     ("Studio/BeforeAfterSlider.swift", "BeforeAfterSlider.swift"),
+    ("Studio/SettingsView.swift", "SettingsView.swift"),
     ("Capture/CaptureViews.swift", "CaptureViews.swift"),
     ("Services/HeadshotService.swift", "HeadshotService.swift"),
     ("Services/PortraitStudio.swift", "PortraitStudio.swift"),

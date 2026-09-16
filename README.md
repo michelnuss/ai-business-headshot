@@ -23,7 +23,7 @@ You need a Mac with **Xcode 15.4 or later** (iOS 17 SDK).
 
 1. Open `Headshot.xcodeproj`.
 2. Select the **Headshot** scheme and an iPhone simulator (or a connected iPhone).
-3. Signing: pick your **Team** under the Headshot target → *Signing & Capabilities*. The bundle ID is `com.example.headshot` — change it if Xcode complains it is taken.
+3. Signing: pick your **Team** under the Headshot target → *Signing & Capabilities*. The bundle ID placeholder is `com.yourcompany.headshot` — change it to a reverse-DNS id you own before TestFlight.
 4. Press **Run**.
 
 ### Simulator
@@ -42,14 +42,13 @@ Usage strings live in `Headshot/Info.plist`:
 
 ## Paste an API key (optional)
 
-1. Open `Headshot/App/AppConfig.swift`.
-2. Paste your OpenAI key into the empty string:
+**App Store / TestFlight:** leave `AppConfig.openAIAPIKey` empty. In the app, open **Settings** (gear) and paste a key. It is stored in the Keychain on that device only.
+
+**Local debug:** you can still paste a key in `Headshot/App/AppConfig.swift`. Do not commit it. A compile-time key overrides Settings.
 
 ```swift
 static let openAIAPIKey = ""
 ```
-
-3. Rebuild and run. The toolbar should read **OpenAI studio**.
 
 The app calls `POST /v1/images/edits` with:
 
@@ -76,6 +75,8 @@ The on-device path never generates a new face. It crops, composites, and grades 
 - **No key:** the photo stays on the device.
 - **With key:** the photo is uploaded to OpenAI to produce the edit. Do not use this path for photos you cannot send to a third party.
 
+App Store privacy nutrition labels and export-compliance answers (HTTPS only, `ITSAppUsesNonExemptEncryption = false`) are in [docs/APP_STORE.md](docs/APP_STORE.md). Cost and pricing math is in [docs/COSTS_AND_PRICING.md](docs/COSTS_AND_PRICING.md).
+
 ## Project layout
 
 ```
@@ -84,6 +85,8 @@ Headshot/
   HeadshotApp.swift         App entry
   Info.plist                Camera / Photos usage strings
   App/AppConfig.swift       API key placeholder + identity prompt
+  App/APIKeyStore.swift     Keychain storage for the runtime key
+  Studio/                   Single-screen UI, settings, view model
   Studio/                   Single-screen UI + view model
   Capture/                  Camera picker + share sheet
   Services/                 OpenAI client, mock studio, image helpers

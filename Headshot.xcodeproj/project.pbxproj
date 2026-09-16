@@ -18,6 +18,8 @@
 		7BA62E68404A496A85C50792 /* HeadshotService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841180FC92564DE4B38CDA4F /* HeadshotService.swift */; };
 		1E2F5CA7C91848F9A6369E27 /* PortraitStudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487A365064A44C32B0283F7A /* PortraitStudio.swift */; };
 		B11FCEF04AA2435AB873AAAC /* ImageSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C793C7F42D64FF8BCE7C9C1 /* ImageSupport.swift */; };
+		C0DE0001A1B2C3D4E5F60001 /* APIKeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE0001A1B2C3D4E5F60002 /* APIKeyStore.swift */; };
+		C0DE0001A1B2C3D4E5F60003 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE0001A1B2C3D4E5F60004 /* SettingsView.swift */; };
 		12CA4E38FB47473DB435315D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4716195239A44F1966E0D45 /* Assets.xcassets */; };
 		F3206A9E4F134555B9538B6A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = C17FB97E289A41D48CFAACEF /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
@@ -34,6 +36,8 @@
 		841180FC92564DE4B38CDA4F /* HeadshotService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadshotService.swift; sourceTree = "<group>"; };
 		487A365064A44C32B0283F7A /* PortraitStudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitStudio.swift; sourceTree = "<group>"; };
 		8C793C7F42D64FF8BCE7C9C1 /* ImageSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSupport.swift; sourceTree = "<group>"; };
+		C0DE0001A1B2C3D4E5F60002 /* APIKeyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeyStore.swift; sourceTree = "<group>"; };
+		C0DE0001A1B2C3D4E5F60004 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		BEF5B35EA21642389B0812A9 /* Headshot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Headshot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4716195239A44F1966E0D45 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C17FB97E289A41D48CFAACEF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -88,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				DA9E8AD381A4482899E56FF1 /* AppConfig.swift */,
+				C0DE0001A1B2C3D4E5F60002 /* APIKeyStore.swift */,
 				39B166C49C63410BA3DC7B94 /* StudioPalette.swift */,
 			);
 			path = App;
@@ -100,6 +105,7 @@
 				56CE6CAE2CD94F3E87AA7FEC /* StudioView.swift */,
 				55F2B07C583B4423855A55CB /* StudioViewModel.swift */,
 				EEDF02850F614D1E8DFAADA0 /* BeforeAfterSlider.swift */,
+				C0DE0001A1B2C3D4E5F60004 /* SettingsView.swift */,
 			);
 			path = Studio;
 			sourceTree = "<group>";
@@ -211,6 +217,8 @@
 				7BA62E68404A496A85C50792 /* HeadshotService.swift in Sources */,
 				1E2F5CA7C91848F9A6369E27 /* PortraitStudio.swift in Sources */,
 				B11FCEF04AA2435AB873AAAC /* ImageSupport.swift in Sources */,
+				C0DE0001A1B2C3D4E5F60001 /* APIKeyStore.swift in Sources */,
+				C0DE0001A1B2C3D4E5F60003 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,21 +359,24 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Headshot/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Headshot;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.headshot;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.headshot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -384,21 +395,24 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Headshot/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Headshot;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.headshot;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.headshot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

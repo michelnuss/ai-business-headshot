@@ -11,11 +11,16 @@ final class StudioViewModel {
     var showCamera = false
     var showLibrary = false
     var showShare = false
+    var showSettings = false
     var cameraUnavailable = false
     var isSaving = false
     var toast: String?
+    var studioEpoch = 0
 
-    var usesCloudAI: Bool { AppConfig.usesCloudAI }
+    var usesCloudAI: Bool {
+        _ = studioEpoch
+        return AppConfig.usesCloudAI
+    }
 
     var modeLabel: String {
         usesCloudAI ? "OpenAI studio" : "On-device studio"
@@ -122,6 +127,10 @@ final class StudioViewModel {
     func shareItems() -> [Any] {
         guard let image = phase.resultImage else { return [] }
         return [image]
+    }
+
+    func refreshStudioMode() {
+        studioEpoch += 1
     }
 
     private var generateTask: Task<Void, Never>?

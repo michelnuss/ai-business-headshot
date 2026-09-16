@@ -26,8 +26,16 @@ struct StudioView: View {
                     ModePill(title: model.modeLabel, cloud: model.usesCloudAI)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    if model.canStartOver {
-                        Button("Start over", action: model.startOver)
+                    HStack(spacing: 12) {
+                        if model.canStartOver {
+                            Button("Start over", action: model.startOver)
+                        }
+                        Button {
+                            model.showSettings = true
+                        } label: {
+                            Image(systemName: "gearshape")
+                        }
+                        .accessibilityLabel("Settings")
                     }
                 }
             }
@@ -51,6 +59,9 @@ struct StudioView: View {
             }
             .sheet(isPresented: $model.showShare) {
                 ShareSheet(items: model.shareItems())
+            }
+            .sheet(isPresented: $model.showSettings) {
+                SettingsView(onChange: model.refreshStudioMode)
             }
             .alert("Camera isn’t available", isPresented: $model.cameraUnavailable) {
                 Button("Choose a photo") { model.showLibrary = true }
