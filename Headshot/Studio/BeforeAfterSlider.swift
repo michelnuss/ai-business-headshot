@@ -16,7 +16,7 @@ struct BeforeAfterSlider: View {
                 image(before)
                     .frame(width: width, height: height)
                     .overlay(alignment: .bottomTrailing) {
-                        badge("Original")
+                        badge(L10n.before)
                             .padding(12)
                     }
 
@@ -26,7 +26,7 @@ struct BeforeAfterSlider: View {
                         Rectangle().frame(width: max(x, 0))
                     }
                     .overlay(alignment: .bottomLeading) {
-                        badge("Headshot")
+                        badge(L10n.after)
                             .padding(12)
                     }
 
@@ -41,8 +41,8 @@ struct BeforeAfterSlider: View {
                     }
             )
             .accessibilityElement(children: .ignore)
-            .accessibilityLabel("Before and after comparison")
-            .accessibilityValue("Showing \(Int(split * 100)) percent headshot")
+            .accessibilityLabel(L10n.compareA11y)
+            .accessibilityValue("\(Int(split * 100))%")
             .accessibilityAdjustableAction { direction in
                 switch direction {
                 case .increment:

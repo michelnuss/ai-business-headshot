@@ -1,23 +1,25 @@
 # Costs and pricing
 
-Estimates so you can pick a retail price per headshot or a subscription. **As of 16 September 2026.** Recheck the cited pages before you lock IAP tiers — model vendors change rates.
+Estimates so you can pick a retail price per headshot or a pack. **As of 16 September 2026.** Primary customer is **Africa, South America, and similar markets** — not US/EU-first pricing. Recheck cited pages before locking IAP.
 
-No backend, no CDN, no Push, no analytics SDK in this build. Results live in the user’s Photos app. The only variable COGS is the **optional** cloud image API.
+No backend, no CDN, no Push, no analytics SDK in this build. Results live in Photos. The only variable COGS is the optional cloud image API.
+
+Apple shows IAP in **local currency**. The USD tier ($0.99, $1.99, $2.99…) is the equalized list price; storefronts convert (e.g. BRL, ZAR, NGN, KES, COP, MXN). Some countries share the US store; still price for purchasing power, not Silicon Valley ARPU.
 
 ## Assumptions
 
 | ID | Assumption | Value used | Why |
 | --- | --- | --- | --- |
-| A1 | Home market | United States | USD IAP tiers; Apple fee listed in USD |
-| A2 | Apple program | Individual or small org, **Small Business Program** (≤ $1M prior-year proceeds) | 15% commission instead of 30% |
-| A3 | Default cloud model in the app today | OpenAI `gpt-image-1`, `quality=high`, `size=1024x1536`, `input_fidelity=high` | Matches `AppConfig.swift` + `OpenAIHeadshotService` |
-| A4 | Input photo after client downscale | JPEG, longest side 1536 px | `downscaled(maxDimension: 1536)` |
-| A5 | Failure / retry waste | **15%** extra API calls per *successful* result | Timeouts, safety rejects, user “try again” |
-| A6 | Text prompt size | ~400 tokens | Identity-lock prompt in `AppConfig` |
-| A7 | Hosting / storage / push | **$0** | On-device save + optional direct HTTPS to the model vendor |
-| A8 | IAP tax | Ignored (net of VAT/GST; Apple remits in many stores) | Keep COGS comparable; real net depends on storefront |
-| A9 | FX / rounding | USD list prices at standard Apple tiers ($0.99, $1.99, $2.99, $4.99, $9.99, …) | |
-| A10 | Year | 2026, 12 equal months | Apple $99 fee amortized monthly as $8.25 |
+| A1 | Home market | Emerging markets (Africa, Latin America, similar). USD tiers for Apple equalization | Local currency is Apple’s conversion of the USD price point |
+| A2 | Apple program | **Small Business Program** (≤ $1M prior-year proceeds) | 15% commission |
+| A3 | Default cloud path **in the app today** | OpenAI `gpt-image-1`, **`quality=medium`**, `1024x1536`, `input_fidelity=high`, JPEG in/out | Matches `AppConfig` — medium is what $0.99 packs can bear |
+| A4 | Upload after client compress | JPEG, longest side **1024 px**, quality **0.72** | Slow/metered networks; older iPhones |
+| A5 | Failure / retry waste | **15%** extra API calls per successful result | Timeouts on poor networks, user retry |
+| A6 | Text prompt | ~400 tokens | Identity-lock + job/visa framing |
+| A7 | Hosting / storage / push | **$0** | On-device save |
+| A8 | IAP tax | Ignored (VAT/GST often remitted by Apple) | |
+| A9 | List prices | Apple tiers **$0.99 / $1.99 / $2.99** as the default menu | High-income $4.99+ is optional, not the plan |
+| A10 | Year | 2026 | $99 Apple fee → $8.25/mo |
 
 If you are **not** in the Small Business Program, replace 15% with **30%** in every margin table (or 26% IAP in the EU under the 2026 EU terms — see Apple’s [EU apps page](https://developer.apple.com/support/apps-in-the-eu)).
 
@@ -54,17 +56,19 @@ Official **gpt-image-1** published per-image table and token rates: [GPT Image 1
 
 Edits also bill **input** tokens (text $5 / 1M, image $10 / 1M). A 1536-class selfie is on the order of **~$0.003–$0.006** extra (community tile math + ~400 text tokens). Negligible next to high-quality output.
 
-**Working unit cost (this app, high / 1024×1536):**
+**Working unit cost (this app, medium / 1024×1536):**
 
 | Step | USD |
 | --- | --- |
-| Output image (official table) | 0.250 |
-| Input image + prompt (estimate) | 0.005 |
-| **Call subtotal** | **0.255** |
-| × 1.15 waste (A5) | **0.293** |
-| **Use** | **$0.29–$0.30 per successful headshot** |
+| Output image (official table) | 0.063 |
+| Input image + prompt (1024-class JPEG) | 0.004 |
+| **Call subtotal** | **0.067** |
+| × 1.15 waste (A5) | **0.077** |
+| **Use** | **~$0.08 per successful cloud headshot** |
 
-Official image-model token sheet also lists newer **gpt-image-2** at $4 / $15 per 1M image input/output tokens ([Pricing](https://developers.openai.com/api/docs/pricing)). If output token counts stay near gpt-image-1’s ~6,240 high 1024×1536 tokens, that is about **$0.094** output + ~$0.002 input ≈ **$0.11** after 15% waste. Treat that as the **migration target**, not the number in `AppConfig` today. Confirm `input_fidelity` (identity lock) on gpt-image-2 before switching.
+High quality ($0.25 + waste ≈ **$0.29**) is **not** the shipping default. It cannot fund $0.99–$2.99 packs. Keep high as a later “HD” SKU only if you raise the price.
+
+Official image-model token sheet also lists **gpt-image-2** at $4 / $15 per 1M image in/out ([Pricing](https://developers.openai.com/api/docs/pricing)) — a possible cheaper migrate after identity testing.
 
 ### 2) Google Gemini 2.5 Flash Image
 
@@ -93,7 +97,8 @@ After 15% waste: **~$0.071** (pro).
 
 | Provider | Role | Est. USD / success | Identity lock | Attire change |
 | --- | --- | --- | --- | --- |
-| OpenAI gpt-image-1 high 1024×1536 | **Ships in app today** | **$0.29** | Best (prompt + `input_fidelity=high`) | Yes |
+| OpenAI gpt-image-1 **medium** 1024×1536 | **Ships in app today** | **$0.08** | Best (prompt + `input_fidelity=high`) | Yes |
+| OpenAI gpt-image-1 high 1024×1536 | Optional HD, not default | **$0.29** | Best | Yes |
 | OpenAI gpt-image-2 (token estimate) | Migrate after testing | ~$0.11 | TBD | Yes |
 | Gemini 2.5 Flash Image | Cheapest generative | **$0.046** | Good | Yes |
 | Photoroom Plus | Studio ops, not wardrobe | **$0.12** | Excellent (no new face) | No |
@@ -116,88 +121,88 @@ After 15% waste: **~$0.071** (pro).
 
 ---
 
-## Worked volume (OpenAI gpt-image-1 high — A3+A5)
+## Worked volume (OpenAI gpt-image-1 **medium** — A3+A5)
 
-COGS = **$0.293** ≈ **$0.29** per successful headshot. Overhead = $99/yr Apple fee.
+COGS = **~$0.08** per successful cloud headshot. Apple fee $99/yr.
 
 | Successful shots / month | API COGS / mo | API + Apple fee / mo | API COGS / year |
 | ---: | ---: | ---: | ---: |
-| 1,000 | $293 | $301 | $3,516 |
-| 10,000 | $2,930 | $2,938 | $35,160 |
-| 100,000 | $29,300 | $29,308 | $351,600 |
+| 1,000 | $77 | $85 | $924 |
+| 10,000 | $770 | $778 | $9,240 |
+| 100,000 | $7,700 | $7,708 | $92,400 |
 
-Same volumes on **Gemini Flash Image** (~$0.046): **$46 / $460 / $4,600** per month.
+Same volumes on **Gemini Flash Image** (~$0.046): **$46 / $460 / $4,600** per month. Strong fallback if you need even cheaper packs.
 
-Same volumes on **gpt-image-2 estimate** (~$0.11): **$110 / $1,100 / $11,000** per month.
+High-quality OpenAI at the same volumes: **$293 / $2,930 / $29,300** — too heavy for this market.
 
-Rate limits: gpt-image-1 Tier 1 is **5 images/min**. 10k/month is easy; 100k/month (~2,300/day) needs a higher OpenAI usage tier ([model page IPM table](https://developers.openai.com/api/docs/models/gpt-image-1)).
+Rate limits: gpt-image-1 Tier 1 is **5 images/min**. 10k/month is easy; 100k/month needs a higher usage tier ([model page](https://developers.openai.com/api/docs/models/gpt-image-1)).
 
 ---
 
-## Retail bands (after Apple 15% + COGS)
+## Retail bands — emerging markets first
 
-`Net = list × 0.85`. `Profit = net − (COGS × shots in the SKU)`. COGS = $0.29 (gpt-image-1 high).
+`Net = list × 0.85` (Small Business). `Profit = net − (COGS × shots)`. **COGS = $0.08** (medium, shipping default).
 
-### One-shot (1 successful headshot)
+Apple maps these USD tiers to local currency automatically. You can lower a storefront further in App Store Connect (e.g. a cheaper Brazil or Nigeria equivalent) without changing the US equalized tier.
 
-| List (USD) | Apple 15% | You net | COGS | Profit | Margin on list |
-| ---: | ---: | ---: | ---: | ---: | ---: |
-| 1.99 | 0.30 | 1.69 | 0.29 | **1.40** | 70% |
-| **2.99** | 0.45 | 2.54 | 0.29 | **2.25** | **75%** |
-| 4.99 | 0.75 | 4.24 | 0.29 | **3.95** | 79% |
+### Default menu ($0.99–$2.99)
 
-Impulse SKU: **$2.99**. $1.99 still works but looks cheap and trains a low anchor.
+| SKU | List (USD equalized) | Apple 15% | You net | COGS | Profit | Notes |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| 1 cloud photo | **0.99** | 0.15 | 0.84 | 0.08 | **0.76** | Impulse; still positive at 30% Apple ($0.61 profit) |
+| **5 photos** | **1.99** | 0.30 | 1.69 | 0.40 | **1.29** | Best everyday pack |
+| **10 photos** | **2.99** | 0.45 | 2.54 | 0.80 | **1.74** | Family / repeat applications |
 
-### Credit packs (consumable IAP)
+Do **not** sell 10 shots at $2.99 on **high** quality ($2.54 − $2.90 = **loss**). Medium (or Gemini) is the constraint that makes this menu work.
 
-| Pack | List | Net @15% | COGS | Profit | $ / extra shot vs $2.99 |
+Free on-this-iPhone studio stays free forever — acquisition, zero COGS, works offline.
+
+### If a storefront can bear more
+
+| SKU | List | Net @15% | COGS | Profit |
+| --- | ---: | ---: | ---: | ---: |
+| 1 photo | 1.99 | 1.69 | 0.08 | 1.61 |
+| 10 photos | 4.99 | 4.24 | 0.80 | 3.44 |
+
+Use this only after you see conversion in that country — not as the global default.
+
+### Subscription (optional, capped)
+
+Unlimited cloud at any COGS is dangerous on poor networks (retries). Prefer packs.
+
+| Plan | Included / mo | List | Net @15% | COGS if used up | Profit |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| 5 shots | 9.99 | 8.49 | 1.45 | **7.04** | $2.00 |
-| **10 shots** | **14.99** | 12.74 | 2.90 | **9.84** | **$1.50** |
-| 25 shots | 29.99 | 25.49 | 7.25 | **18.24** | $1.20 |
+| Light | 5 | 1.99 | 1.69 | 0.40 | **1.29** |
+| Standard | 12 | 2.99 | 2.54 | 0.96 | **1.58** |
 
-If you want a simpler grid: **10 for $9.99** → net $8.49 − $2.90 = **$5.59** profit (56% of list). Fine, slightly less premium.
+Year-2 Apple subscription commission stays 15%.
 
-### Subscription (auto-renewable)
+### 30% commission (no Small Business Program)
 
-Caps matter. Unlimited generative headshots at $0.29 COGS will lose money.
-
-| Plan | Included / mo | List | Net @15% | COGS if fully used | Profit if fully used |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| Light | 5 | 4.99 | 4.24 | 1.45 | **2.79** |
-| **Standard** | **15** | **9.99** | 8.49 | 4.35 | **4.14** |
-| Heavy (gpt-image-1) | 40 | 14.99 | 12.74 | 11.60 | **1.14** — too thin |
-| Heavy on Gemini | 40 | 14.99 | 12.74 | 1.84 | **10.90** |
-
-Year-2 Apple commission stays 15% for subscriptions even if you leave SBP.
-
-**If COGS stays ~$0.29, do not sell unlimited.** Soft-cap the plan and sell top-up packs.
-
-### 30% commission (no SBP) — $2.99 one-shot
-
-Net $2.09 − $0.29 = **$1.80** (still healthy). Packs remain positive. Subscriptions with 40 gpt-image-1 shots at $14.99 go **negative** ($10.49 − $11.60).
+$0.99 one-shot: net $0.69 − $0.08 = **$0.61**.  
+$2.99 / 10: net $2.09 − $0.80 = **$1.29**. Still viable with medium quality. High quality 10-for-$2.99 is not.
 
 ---
 
 ## Suggested starting menu
 
-1. **Free:** on-device studio (current default). Acquisition, no COGS.
-2. **$2.99** — 1 cloud headshot (consumable).
-3. **$14.99** — 10 cloud headshots.
-4. Optional later: **$9.99 / month** — 15 cloud headshots, then $2.99 top-ups.
+1. **Free:** studio on this iPhone (crop, light, background). Always available, including offline.
+2. **$0.99** — 1 cloud photo (job/visa this week).
+3. **$1.99** — 5 cloud photos.
+4. **$2.99** — 10 cloud photos.
 
-At 1,000 paid one-shots/month of $2.99 with 15% Apple + $0.29 COGS: revenue $2,990, Apple $449, COGS $290, **≈ $2,250 contribution** before the $8.25/mo developer fee.
+At 1,000 paid $0.99 shots/month: revenue $990, Apple $149, COGS $80, **≈ $761 contribution** before the $8.25/mo developer fee.
 
-Switching the default cloud model to Gemini (~$0.05) or a verified gpt-image-2 (~$0.11) roughly **doubles or triples** generative margin and is the main lever — not hosting.
+Gemini at ~$0.05 COGS is the next lever if you need $0.99 packs in very price-sensitive storefronts and can accept a slightly weaker identity lock.
 
 ---
 
 ## What would change these numbers
 
+- Defaulting back to **high** quality (breaks $0.99–$2.99 packs).
 - Leaving Small Business Program (30% / EU 26%).
-- Shipping a **shared** vendor key (you pay COGS; need abuse caps).
-- Allowing retries without charging a credit (waste factor > 15%).
-- Storing full-res PNG on your S3 at 100k+/mo.
-- Using Photoroom instead of generative attire (lower COGS, weaker “LinkedIn blazer” story).
+- Shipping a **shared** vendor key (you pay COGS; need hard caps).
+- Not charging a credit on retry (waste > 15% on slow networks).
+- US-only $9.99+ SKUs as the only option (wrong market).
 
-Re-run this sheet when you change `AppConfig.imageModel`, quality, or size.
+Re-run this sheet when you change `AppConfig.imageModel`, `imageQuality`, or size.

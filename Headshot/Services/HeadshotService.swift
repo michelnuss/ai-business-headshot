@@ -14,21 +14,21 @@ enum HeadshotError: LocalizedError, Equatable {
     var errorDescription: String? {
         switch self {
         case .missingAPIKey:
-            return "No API key is set. Paste one in AppConfig.swift, or keep using the on-device studio."
+            return L10n.Error.missingKey
         case .invalidImage:
-            return "That photo couldn’t be prepared. Try a different portrait."
+            return L10n.Error.invalidImage
         case .transport(let message):
             return message
         case .api(let message):
             return message
         case .unauthorized:
-            return "OpenAI rejected the API key. Check the value in AppConfig.swift."
+            return L10n.Error.unauthorized
         case .quota:
-            return "OpenAI returned a billing or quota error. Check your plan, then try again."
+            return L10n.Error.quota
         case .saveDenied:
-            return "Photos access is off. Enable it in Settings, or use Share instead."
+            return L10n.Error.saveDenied
         case .saveFailed:
-            return "Couldn’t save to Photos. Try Share instead."
+            return L10n.Error.saveFailed
         }
     }
 }
@@ -68,8 +68,8 @@ struct OpenAIHeadshotService: HeadshotGenerating {
 
         guard let jpeg = image
             .normalizedOrientation()
-            .downscaled(maxDimension: 1536)
-            .jpegData(compressionQuality: 0.86)
+            .downscaled(maxDimension: AppConfig.uploadMaxDimension)
+            .jpegData(compressionQuality: AppConfig.uploadJPEGQuality)
         else {
             throw HeadshotError.invalidImage
         }
@@ -83,10 +83,10 @@ struct OpenAIHeadshotService: HeadshotGenerating {
         }
         field("model", AppConfig.imageModel)
         field("prompt", AppConfig.transformationPrompt)
-        field("size", "1024x1536")
-        field("quality", "high")
+        field("size", AppConfig.imageSize)
+        field("quality", AppConfig.imageQuality)
         field("input_fidelity", "high")
-        field("output_format", "png")
+        field("output_format", AppConfig.outputFormat)
         field("n", "1")
 
         body.append("--\(boundary)\r\n")
@@ -97,7 +97,7 @@ struct OpenAIHeadshotService: HeadshotGenerating {
         body.append("--\(boundary)--\r\n")
 
         guard let url = URL(string: "\(AppConfig.openAIBaseURL)/images/edits") else {
-            throw HeadshotError.transport("The OpenAI URL in AppConfig.swift is not valid.")
+            throw HeadshotError.transport(L10n.Error.badURL)
         }
 
         var request = URLRequest(url: url)
@@ -105,7 +105,7 @@ struct OpenAIHeadshotService: HeadshotGenerating {
         request.httpBody = body
         request.setValue("Bearer \(key)", forHTTPHeaderField: "Authorization")
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        request.timeoutInterval = 120
+        request.timeoutInterval = AppConfig.requestTimeout
 
         let data: Data
         let response: URLResponse
@@ -116,7 +116,7 @@ struct OpenAIHeadshotService: HeadshotGenerating {
         } catch let error as URLError where error.code == .cancelled {
             throw CancellationError()
         } catch {
-            throw HeadshotError.transport("Couldn’t reach OpenAI. Check your connection and try again.")
+            throw HeadshotError.transport(L10n.Error.transport)
         }
 
         let status = (response as? HTTPURLResponse)?.statusCode ?? 0
@@ -125,16 +125,16 @@ struct OpenAIHeadshotService: HeadshotGenerating {
         }
 
         if let apiError = try? JSONDecoder().decode(OpenAIErrorEnvelope.self, from: data).error {
-            throw Self.mapAPIError(apiError.message ?? "OpenAI returned an error.")
+            throw Self.mapAPIError(apiError.message ?? L10n.Error.genericAPI)
         }
 
         guard (200...299).contains(status) else {
-            throw HeadshotError.api("OpenAI returned HTTP \(status). Try again in a moment.")
+            throw HeadshotError.api(L10n.Error.httpStatus(status))
         }
 
         let decoded = try JSONDecoder().decode(OpenAIImagesResponse.self, from: data)
         guard let item = decoded.data?.first else {
-            throw HeadshotError.api("OpenAI returned an empty image response.")
+            throw HeadshotError.api(L10n.Error.emptyResponse)
         }
 
         if let b64 = item.b64Json, let imageData = Data(base64Encoded: b64), let image = UIImage(data: imageData) {
@@ -148,7 +148,7 @@ struct OpenAIHeadshotService: HeadshotGenerating {
             }
         }
 
-        throw HeadshotError.api("OpenAI didn’t return a usable image. Try another photo.")
+        throw HeadshotError.api(L10n.Error.unusableImage)
     }
 
     private static func mapAPIError(_ message: String) -> HeadshotError {

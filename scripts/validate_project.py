@@ -119,6 +119,10 @@ def check_secrets_and_config() -> None:
 
     if 'field("input_fidelity", "high")' not in service:
         fail("OpenAI client must send input_fidelity=high")
+    if 'static let imageQuality = "medium"' not in config:
+        fail("Cloud quality should default to medium for emerging-market cost")
+    if "uploadMaxDimension" not in config:
+        fail("AppConfig must cap upload size for slow networks")
     if "MockStudioService" not in service or "usesCloudAI" not in service:
         fail("Factory must switch to MockStudioService when no key is present")
     if 'static var usesCloudAI: Bool {\n        !forceMockStudio && isAPIKeyPresent\n    }' not in config:
@@ -136,14 +140,14 @@ def check_secrets_and_config() -> None:
         if key not in info:
             fail(f"Info.plist is missing {key}")
 
-    for rel in ["docs/APP_STORE.md", "docs/COSTS_AND_PRICING.md"]:
+    for rel in ["docs/APP_STORE.md", "docs/COSTS_AND_PRICING.md", "Headshot/Localizable.xcstrings", "Headshot/App/L10n.swift"]:
         if not (ROOT / rel).exists():
             fail(f"Missing {rel}")
 
 
 def check_flow_surface() -> None:
     studio = read(APP / "Studio" / "StudioView.swift")
-    for token in ["Create headshot", "Camera", "Library", "BeforeAfterSlider", "Save", "Share", "SettingsView"]:
+    for token in ["L10n.create", "L10n.camera", "L10n.library", "BeforeAfterSlider", "L10n.save", "L10n.share", "SettingsView"]:
         if token not in studio:
             fail(f"StudioView is missing UI for {token!r}")
     model = read(APP / "Studio" / "StudioViewModel.swift")

@@ -4,14 +4,21 @@
 <dict>
 	<key>CFBundleDisplayName</key>
 	<string>Headshot</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>es</string>
+		<string>pt</string>
+		<string>fr</string>
+	</array>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>NSCameraUsageDescription</key>
-	<string>Headshot uses the camera to take a portrait for your studio headshot.</string>
+	<string>Headshot uses the camera to take a portrait for job, visa, and professional photos.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Headshot saves the finished headshot to your photo library.</string>
+	<string>Headshot saves the finished studio photo to your library.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Headshot uses your library so you can choose a portrait to transform.</string>
+	<string>Headshot uses your photo library so you can choose a portrait to turn into a studio photo.</string>
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIColorName</key>

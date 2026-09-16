@@ -19,7 +19,7 @@ struct StudioView: View {
                 .padding(.bottom, 16)
                 .padding(.top, 8)
             }
-            .navigationTitle("Headshot")
+            .navigationTitle(L10n.appName)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -28,14 +28,14 @@ struct StudioView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     HStack(spacing: 12) {
                         if model.canStartOver {
-                            Button("Start over", action: model.startOver)
+                            Button(L10n.startOver, action: model.startOver)
                         }
                         Button {
                             model.showSettings = true
                         } label: {
                             Image(systemName: "gearshape")
                         }
-                        .accessibilityLabel("Settings")
+                        .accessibilityLabel(L10n.settings)
                     }
                 }
             }
@@ -63,11 +63,11 @@ struct StudioView: View {
             .sheet(isPresented: $model.showSettings) {
                 SettingsView(onChange: model.refreshStudioMode)
             }
-            .alert("Camera isn’t available", isPresented: $model.cameraUnavailable) {
-                Button("Choose a photo") { model.showLibrary = true }
-                Button("OK", role: .cancel) {}
+            .alert(L10n.cameraUnavailableTitle, isPresented: $model.cameraUnavailable) {
+                Button(L10n.cameraUnavailableChoose) { model.showLibrary = true }
+                Button(L10n.ok, role: .cancel) {}
             } message: {
-                Text("This \(simulatorWord) doesn’t have a camera. Pick a portrait from the library instead.")
+                Text(L10n.cameraUnavailableMessage)
             }
             .overlay(alignment: .top) {
                 if let toast = model.toast {
@@ -80,14 +80,6 @@ struct StudioView: View {
         }
         .tint(StudioPalette.accent)
         .preferredColorScheme(.light)
-    }
-
-    private var simulatorWord: String {
-        #if targetEnvironment(simulator)
-        "simulator"
-        #else
-        "device"
-        #endif
     }
 
     @ViewBuilder
@@ -132,17 +124,15 @@ struct StudioView: View {
     private var captionText: String {
         switch model.phase {
         case .empty:
-            return "Lighting, background, and attire only — facial structure stays unchanged."
+            return L10n.captionEmpty
         case .ready:
-            return "A clear, well-lit face looking toward the camera works best."
+            return L10n.captionReady
         case .generating:
-            return model.usesCloudAI
-                ? "Sending a high-fidelity edit so your face stays yours."
-                : "On-device studio: background, crop, and light. Paste an API key for attire."
+            return model.usesCloudAI ? L10n.captionGeneratingCloud : L10n.captionGeneratingDevice
         case .result:
-            return "Drag the handle to compare. Save or share when it looks right."
+            return L10n.captionResult
         case .failed:
-            return "Nothing was overwritten. You can retry or pick another photo."
+            return L10n.captionFailed
         }
     }
 
@@ -150,7 +140,7 @@ struct StudioView: View {
         VStack(spacing: 12) {
             HStack(spacing: 12) {
                 SourceButton(
-                    title: "Camera",
+                    title: L10n.camera,
                     systemImage: "camera.fill",
                     enabled: !model.phase.isGenerating
                 ) {
@@ -158,7 +148,7 @@ struct StudioView: View {
                 }
 
                 SourceButton(
-                    title: "Library",
+                    title: L10n.library,
                     systemImage: "photo.on.rectangle",
                     enabled: !model.phase.isGenerating
                 ) {
@@ -169,7 +159,7 @@ struct StudioView: View {
             switch model.phase {
             case .empty, .ready, .generating, .failed:
                 Button(action: model.createHeadshot) {
-                    Label("Create headshot", systemImage: "sparkles")
+                    Label(L10n.create, systemImage: "sparkles")
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 8)
@@ -182,7 +172,7 @@ struct StudioView: View {
                     Button {
                         model.showShare = true
                     } label: {
-                        Label("Share", systemImage: "square.and.arrow.up")
+                        Label(L10n.share, systemImage: "square.and.arrow.up")
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 8)
                     }
@@ -197,7 +187,7 @@ struct StudioView: View {
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 8)
                         } else {
-                            Label("Save", systemImage: "square.and.arrow.down")
+                            Label(L10n.save, systemImage: "square.and.arrow.down")
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 8)
                         }
@@ -223,7 +213,7 @@ private struct ModePill: View {
             .padding(.vertical, 6)
             .background(StudioPalette.card, in: Capsule())
             .foregroundStyle(.secondary)
-            .accessibilityLabel(cloud ? "Using OpenAI studio" : "Using on-device studio")
+            .accessibilityLabel(cloud ? L10n.modeCloudA11y : L10n.modeDeviceA11y)
     }
 }
 
@@ -233,9 +223,9 @@ private struct EmptyPhotoCard: View {
             Image(systemName: "person.crop.rectangle")
                 .font(.system(size: 44, weight: .light))
                 .foregroundStyle(StudioPalette.accent)
-            Text("Take a photo or choose one")
+            Text(L10n.emptyTitle)
                 .font(.headline)
-            Text("Use a snapshot of yourself. The studio keeps you recognizable.")
+            Text(L10n.emptyBody)
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
@@ -253,7 +243,7 @@ private struct PhotoCard: View {
             .resizable()
             .scaledToFill()
             .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
-            .accessibilityLabel("Selected portrait")
+            .accessibilityLabel(L10n.photoA11y)
     }
 }
 
@@ -275,7 +265,7 @@ private struct GeneratingOverlay: View {
             }
         }
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("Creating headshot, \(status)")
+        .accessibilityLabel("\(L10n.generatingA11y), \(status)")
     }
 }
 
@@ -289,7 +279,7 @@ private struct ErrorBanner: View {
                 .font(.footnote)
                 .foregroundStyle(.primary)
                 .fixedSize(horizontal: false, vertical: true)
-            Button("Try again", action: retry)
+            Button(L10n.retry, action: retry)
                 .font(.subheadline.weight(.semibold))
         }
         .padding(14)

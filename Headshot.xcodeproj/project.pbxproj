@@ -20,6 +20,9 @@
 		B11FCEF04AA2435AB873AAAC /* ImageSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C793C7F42D64FF8BCE7C9C1 /* ImageSupport.swift */; };
 		C0DE0001A1B2C3D4E5F60001 /* APIKeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE0001A1B2C3D4E5F60002 /* APIKeyStore.swift */; };
 		C0DE0001A1B2C3D4E5F60003 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE0001A1B2C3D4E5F60004 /* SettingsView.swift */; };
+		C0DE0001A1B2C3D4E5F60015 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE0001A1B2C3D4E5F60014 /* L10n.swift */; };
+		C0DE0001A1B2C3D4E5F60011 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C0DE0001A1B2C3D4E5F60010 /* Localizable.xcstrings */; };
+		C0DE0001A1B2C3D4E5F60013 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C0DE0001A1B2C3D4E5F60012 /* InfoPlist.xcstrings */; };
 		12CA4E38FB47473DB435315D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4716195239A44F1966E0D45 /* Assets.xcassets */; };
 		F3206A9E4F134555B9538B6A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = C17FB97E289A41D48CFAACEF /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
@@ -38,6 +41,9 @@
 		8C793C7F42D64FF8BCE7C9C1 /* ImageSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSupport.swift; sourceTree = "<group>"; };
 		C0DE0001A1B2C3D4E5F60002 /* APIKeyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeyStore.swift; sourceTree = "<group>"; };
 		C0DE0001A1B2C3D4E5F60004 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		C0DE0001A1B2C3D4E5F60014 /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
+		C0DE0001A1B2C3D4E5F60010 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		C0DE0001A1B2C3D4E5F60012 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		BEF5B35EA21642389B0812A9 /* Headshot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Headshot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4716195239A44F1966E0D45 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C17FB97E289A41D48CFAACEF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -81,6 +87,8 @@
 				9E82F3425EE84974A72AA3B1 /* Capture */,
 				2031D93D7F2244D191EA05D4 /* Services */,
 				A4716195239A44F1966E0D45 /* Assets.xcassets */,
+				C0DE0001A1B2C3D4E5F60010 /* Localizable.xcstrings */,
+				C0DE0001A1B2C3D4E5F60012 /* InfoPlist.xcstrings */,
 				B68A3FF7F15C41CA830AAB9B /* Info.plist */,
 				C17FB97E289A41D48CFAACEF /* PrivacyInfo.xcprivacy */,
 				F77A227C430546608CC528D9 /* Preview Content */,
@@ -93,6 +101,7 @@
 			children = (
 				DA9E8AD381A4482899E56FF1 /* AppConfig.swift */,
 				C0DE0001A1B2C3D4E5F60002 /* APIKeyStore.swift */,
+				C0DE0001A1B2C3D4E5F60014 /* L10n.swift */,
 				39B166C49C63410BA3DC7B94 /* StudioPalette.swift */,
 			);
 			path = App;
@@ -177,6 +186,9 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				es,
+				pt,
+				fr,
 				Base,
 			);
 			mainGroup = 301B6BC4454E48E190C1CAA6;
@@ -196,6 +208,8 @@
 			files = (
 				F3206A9E4F134555B9538B6A /* PrivacyInfo.xcprivacy in Resources */,
 				12CA4E38FB47473DB435315D /* Assets.xcassets in Resources */,
+				C0DE0001A1B2C3D4E5F60011 /* Localizable.xcstrings in Resources */,
+				C0DE0001A1B2C3D4E5F60013 /* InfoPlist.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +233,7 @@
 				B11FCEF04AA2435AB873AAAC /* ImageSupport.swift in Sources */,
 				C0DE0001A1B2C3D4E5F60001 /* APIKeyStore.swift in Sources */,
 				C0DE0001A1B2C3D4E5F60003 /* SettingsView.swift in Sources */,
+				C0DE0001A1B2C3D4E5F60015 /* L10n.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

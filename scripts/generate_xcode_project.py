@@ -65,6 +65,7 @@ SWIFT_FILES = [
     ("HeadshotApp.swift", "HeadshotApp.swift"),
     ("App/AppConfig.swift", "AppConfig.swift"),
     ("App/APIKeyStore.swift", "APIKeyStore.swift"),
+    ("App/L10n.swift", "L10n.swift"),
     ("App/StudioPalette.swift", "StudioPalette.swift"),
     ("Studio/StudioPhase.swift", "StudioPhase.swift"),
     ("Studio/StudioView.swift", "StudioView.swift"),

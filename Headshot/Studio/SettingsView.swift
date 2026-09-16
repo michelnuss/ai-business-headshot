@@ -11,11 +11,11 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 Section {
-                    SecureField("sk-…", text: $draft)
+                    SecureField(L10n.Settings.placeholder, text: $draft)
                         .textContentType(.password)
                         .autocorrectionDisabled()
                         .textInputAutocapitalization(.never)
-                    Button("Save key") {
+                    Button(L10n.Settings.saveKey) {
                         APIKeyStore.save(draft)
                         hasStoredKey = APIKeyStore.load() != nil
                         draft = ""
@@ -23,7 +23,7 @@ struct SettingsView: View {
                     }
                     .disabled(draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                     if hasStoredKey {
-                        Button("Remove key", role: .destructive) {
+                        Button(L10n.Settings.removeKey, role: .destructive) {
                             APIKeyStore.clear()
                             hasStoredKey = false
                             draft = ""
@@ -31,22 +31,25 @@ struct SettingsView: View {
                         }
                     }
                 } header: {
-                    Text("OpenAI API key")
+                    Text(L10n.Settings.keyHeader)
                 } footer: {
                     Text(footerText)
                 }
 
-                Section("This build") {
-                    LabeledContent("Bundle ID", value: Bundle.main.bundleIdentifier ?? "—")
-                    LabeledContent("Version", value: versionString)
-                    LabeledContent("Studio", value: AppConfig.usesCloudAI ? "OpenAI" : "On-device")
+                Section(L10n.Settings.thisBuild) {
+                    LabeledContent(L10n.Settings.bundle, value: Bundle.main.bundleIdentifier ?? "—")
+                    LabeledContent(L10n.Settings.version, value: versionString)
+                    LabeledContent(
+                        L10n.Settings.studio,
+                        value: AppConfig.usesCloudAI ? L10n.Settings.studioCloud : L10n.Settings.studioDevice
+                    )
                 }
             }
-            .navigationTitle("Settings")
+            .navigationTitle(L10n.Settings.title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Done") { dismiss() }
+                    Button(L10n.done) { dismiss() }
                 }
             }
             .onAppear {
@@ -57,9 +60,9 @@ struct SettingsView: View {
 
     private var footerText: String {
         if !AppConfig.openAIAPIKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            return "A compile-time key is set in AppConfig.swift and takes priority. Leave that string empty for App Store builds and paste a key here instead. The key stays in the Keychain on this device."
+            return L10n.Settings.footerCompileTime
         }
-        return "Leave AppConfig.swift empty for App Store / TestFlight. Paste a key here to enable cloud studio. It is stored in the Keychain on this iPhone only — never commit a key. Photos are sent to OpenAI only when a key is present."
+        return L10n.Settings.footerRuntime
     }
 
     private var versionString: String {

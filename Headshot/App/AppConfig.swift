@@ -1,3 +1,4 @@
+import CoreGraphics
 import Foundation
 
 /// Runtime configuration for Headshot.
@@ -15,6 +16,17 @@ enum AppConfig {
 
     /// Image model used for identity-preserving edits.
     static let imageModel = "gpt-image-1"
+
+    /// Medium quality keeps identity lock cheaper and the download smaller on slow networks.
+    static let imageQuality = "medium"
+    static let imageSize = "1024x1536"
+    static let outputFormat = "jpeg"
+
+    /// Cap RAM and upload size for older iPhones and metered connections.
+    static let displayMaxDimension: CGFloat = 1280
+    static let uploadMaxDimension: CGFloat = 1024
+    static let uploadJPEGQuality: CGFloat = 0.72
+    static let requestTimeout: TimeInterval = 180
 
     /// Set to `true` to keep using the on-device studio even after a key is pasted.
     static let forceMockStudio = false
@@ -56,8 +68,9 @@ enum AppConfig {
     gentle fill; no harsh shadows; no dramatic color gels.
     - Grooming: tidy flyaway hair, even skin texture, reduce temporary blemishes. \
     Keep real skin texture — no plastic or airbrushed look.
-    - Framing: head-and-shoulders portrait, subject centered, eyes roughly on the \
-    upper third, looking toward camera. Photorealistic photograph only.
+    - Framing: head-and-shoulders portrait suitable for job applications, visas, \
+    and professional profiles. Subject centered, eyes roughly on the upper third, \
+    looking toward camera. Photorealistic photograph only.
 
     No text, logos, watermarks, jewelry changes unless already present, \
     or illustration/painting effects.

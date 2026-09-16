@@ -10,7 +10,7 @@ import Vision
 /// composites the person onto studio paper, and applies a restrained grade.
 enum PortraitStudio {
     static func render(_ image: UIImage) async throws -> UIImage {
-        let prepared = image.normalizedOrientation().downscaled(maxDimension: 2048)
+        let prepared = image.normalizedOrientation().downscaled(maxDimension: AppConfig.displayMaxDimension)
         guard let cgImage = prepared.cgImage else { throw HeadshotError.invalidImage }
         let scale = prepared.scale
 

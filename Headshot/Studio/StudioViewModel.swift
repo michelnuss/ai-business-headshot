@@ -23,7 +23,7 @@ final class StudioViewModel {
     }
 
     var modeLabel: String {
-        usesCloudAI ? "OpenAI studio" : "On-device studio"
+        usesCloudAI ? L10n.modeCloud : L10n.modeDevice
     }
 
     var canCreate: Bool {
@@ -40,14 +40,14 @@ final class StudioViewModel {
         guard let item else { return }
         do {
             guard let imported = try await item.loadTransferable(type: ImportedImage.self) else {
-                failLoad("That file couldn’t be opened as a photo. Try another one.")
+                failLoad(L10n.loadFailed)
                 pickerItem = nil
                 return
             }
             accept(imported.image)
             pickerItem = nil
         } catch {
-            failLoad("Couldn’t load that photo. Try another one.")
+            failLoad(L10n.loadFailed)
             pickerItem = nil
         }
     }
@@ -69,7 +69,7 @@ final class StudioViewModel {
         generateTask?.cancel()
         statusTask?.cancel()
 
-        phase = .generating(source: image, status: Self.statusMessages[0])
+        phase = .generating(source: image, status: L10n.statusMessages[0])
         statusTask = Task { await rotateStatus(for: image) }
 
         generateTask = Task {
@@ -114,11 +114,11 @@ final class StudioViewModel {
         defer { isSaving = false }
         do {
             try await PhotoSaver.save(image)
-            presentToast("Saved to Photos")
+            presentToast(L10n.toastSaved)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
         } catch {
             let message = (error as? HeadshotError)?.errorDescription
-                ?? "Couldn’t save to Photos."
+                ?? L10n.Error.saveFailed
             presentToast(message)
             UINotificationFeedbackGenerator().notificationOccurred(.error)
         }
@@ -137,18 +137,10 @@ final class StudioViewModel {
     private var statusTask: Task<Void, Never>?
     private var toastTask: Task<Void, Never>?
 
-    private static let statusMessages = [
-        "Reading the portrait…",
-        "Locking facial identity…",
-        "Setting studio light…",
-        "Cleaning the background…",
-        "Finishing the headshot…"
-    ]
-
     private func accept(_ image: UIImage) {
         generateTask?.cancel()
         statusTask?.cancel()
-        let prepared = image.downscaled(maxDimension: 2048)
+        let prepared = image.downscaled(maxDimension: AppConfig.displayMaxDimension)
         phase = .ready(prepared)
     }
 
@@ -168,9 +160,9 @@ final class StudioViewModel {
         while !Task.isCancelled {
             try? await Task.sleep(for: .seconds(2.2))
             guard !Task.isCancelled else { return }
-            index = (index + 1) % Self.statusMessages.count
+            index = (index + 1) % L10n.statusMessages.count
             if case .generating = phase {
-                phase = .generating(source: image, status: Self.statusMessages[index])
+                phase = .generating(source: image, status: L10n.statusMessages[index])
             }
         }
     }

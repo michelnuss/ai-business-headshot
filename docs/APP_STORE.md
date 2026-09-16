@@ -1,6 +1,8 @@
 # App Store submission checklist
 
-Headshot is an iPhone-only SwiftUI app with **no Push**, **no Sign in with Apple**, **no IAP yet**, and **no backend**. Replace the placeholders below, then archive from Xcode. Date of this checklist: 16 September 2026.
+Headshot is an iPhone-only SwiftUI app for **emerging markets** (Africa, South America, and similar): professional photos for jobs, visas, and profiles — not a US/EU vanity filter. **No Push**, **no Sign in with Apple**, **no IAP in this build**, **no backend**. Replace placeholders, then archive. Date: 16 September 2026.
+
+Localizations shipped: English, Spanish, Portuguese, French (system language). Set App Store Connect primary and additional languages to match. Prefer availability in African and Latin American storefronts; use Apple regional price tiers (see [docs/COSTS_AND_PRICING.md](COSTS_AND_PRICING.md)).
 
 ## 1. Accounts and identifiers (human)
 
@@ -82,32 +84,36 @@ iPhone-only, so one size class is enough.
 
 Suggested shot list: empty studio → library pick → generating overlay → before/after slider → save.
 
-Subtitle (30 characters) example: `Studio portraits, still you.`
+Subtitle (30 characters) example: `Jobs, visas, real photos.`
 
-Description should say identity is preserved (lighting, background, attire only).
+Description should say identity is preserved (lighting, background, clothes only) and name the use cases: applications, visas, professional profiles. Do not sell it as a beauty or entertainment filter.
+
+Availability: enable storefronts in Africa and Latin America. Use Apple’s regional pricing so $0.99–$2.99 packs map to local currency. Screenshot text should match the localization (ES, PT, FR, EN) — don’t ship English-only marketing in BR/MX/SN.
 
 Support URL and Privacy Policy URL are required. Host a one-pager before submit.
 
 ## 6. Review notes template (paste into App Store Connect)
 
 ```
-Headshot turns a user photo into a professional business headshot.
+Headshot makes a formal studio photo from a phone snapshot for job applications, visas, and professional profiles. It keeps the same person — lighting, background, and clothes only.
 
 HOW TO TEST
-1. Launch the app. No account, no login.
-2. Tap Library and pick any portrait (Simulator has no camera).
-3. Tap Create headshot. The default path is on-device (Vision + Core Image) and needs no network or API key.
-4. Drag the before/after handle, then Share or Save.
+1. Launch. No account.
+2. Tap Photos and pick any portrait (Simulator has no camera).
+3. Tap Create headshot. Default path is on this iPhone (Vision + Core Image). No network, no key.
+4. Slide to compare, then Share or Save. If a step fails, Try again is visible — nothing is hidden.
 
-OPTIONAL CLOUD PATH
-Settings (gear) → paste an OpenAI API key to use gpt-image-1 image edits.
-We are NOT shipping a vendor key. Reviewers do not need the cloud path.
+OPTIONAL CLOUD
+Settings (gear) → paste an OpenAI key. Reviewers do not need this. We do not ship a vendor key. Uploads are small JPEGs.
 
 PERMISSIONS
-Camera and Photos are used only for the portrait the user chooses and to save the result.
+Camera and Photos: only the portrait the user chooses, and save/share.
 
 EXPORT COMPLIANCE
-Uses HTTPS only. ITSAppUsesNonExemptEncryption is false.
+HTTPS only. ITSAppUsesNonExemptEncryption is false.
+
+POSITIONING
+Built for slower networks and older iPhones (iOS 17 / iPhone XS class and newer). Localizations: EN, ES, PT, FR.
 ```
 
 ## 7. Human setup that this repo cannot do

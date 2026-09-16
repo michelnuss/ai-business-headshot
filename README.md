@@ -1,108 +1,83 @@
 # Headshot
 
-An iPhone app that turns a snapshot of you into a professional business headshot.
+A professional studio photo from a phone snapshot — for **job applications, visas, and professional profiles**. Built for people in Africa, South America, and similar markets who need a formal photo without a studio or expensive AI apps.
 
-It keeps **you** — same face, same structure, same identity — and only adjusts the studio parts: background, lighting, grooming, and attire.
+You still look like you. The app only adjusts lighting, background, and clothes. It does not change your face.
 
-Open `Headshot.xcodeproj` in Xcode. There is no API key in the project. The full camera → result flow runs immediately through an on-device studio.
+Open `Headshot.xcodeproj` on a Mac. No API key is required. The full flow runs on the iPhone.
+
+## Who it is for
+
+- Job and internship applications
+- Visas and other official photos
+- Company directories and professional profiles
+
+Not a beauty filter. Copy, pricing, and network use assume slower connections, older iPhones, and low IAP prices — not a US/EU-first product.
+
+Languages in this build: **English, Spanish, Portuguese**, with **French** included for West and Central Africa. The system language picks the strings.
 
 ## What you get
 
-One screen. Take a photo or pick one, tap **Create headshot**, then compare with a before/after slider. Save to Photos or share.
+One screen. Take a photo or pick one, tap **Create headshot**, compare with a slider, then save or share. Retry is always available if the network drops.
 
 | Mode | When | What it does |
 | --- | --- | --- |
-| **On-device studio** | `openAIAPIKey` is empty (default) | Face-aware crop, person cutout onto studio paper, restrained color grade. Never changes facial geometry. Works in Simulator with no network. |
-| **OpenAI studio** | You paste a key | Sends the portrait to `gpt-image-1` image edits with `input_fidelity=high` and an identity-lock prompt. |
-
-The toolbar pill tells you which path is active.
+| **On this iPhone** | No cloud key (default) | Crop, studio background, lighting. Face pixels stay yours. No upload. |
+| **Cloud studio** | Key in Settings | Small JPEG sent to OpenAI `gpt-image-1` with identity lock. Medium quality, ~1024 px upload, JPEG back — cheaper and lighter on slow data. |
 
 ## Open and run
 
-You need a Mac with **Xcode 15.4 or later** (iOS 17 SDK).
+Xcode 15.4+ (iOS 17). iPhone XS / XR and newer can run iOS 17.
 
 1. Open `Headshot.xcodeproj`.
-2. Select the **Headshot** scheme and an iPhone simulator (or a connected iPhone).
-3. Signing: pick your **Team** under the Headshot target → *Signing & Capabilities*. The bundle ID placeholder is `com.yourcompany.headshot` — change it to a reverse-DNS id you own before TestFlight.
-4. Press **Run**.
+2. Scheme **Headshot**, iPhone simulator or device.
+3. Signing: pick your Team. Bundle ID placeholder: `com.yourcompany.headshot`.
+4. Run. Simulator has no camera — use **Photos**.
 
-### Simulator
+Privacy strings (localized) are in `Info.plist` / `InfoPlist.xcstrings`.
 
-The camera is not available. Use **Library** and pick any portrait (or a screenshot of a person). Create headshot uses the on-device studio. You should see a loading overlay, then a draggable before/after result.
+## Cloud key (optional)
 
-### Device
+Leave `AppConfig.openAIAPIKey` empty for store builds. Testers can paste a key in **Settings** (stored in the Keychain on that iPhone). Photos leave the device only with a key. That is explained in Settings — no hidden upload.
 
-**Camera** opens the front camera. iOS will ask for camera access the first time. **Save** asks for permission to add photos.
+Cloud calls use:
 
-Usage strings live in `Headshot/Info.plist`:
+- `input_fidelity=high` (keep the same person)
+- `quality=medium` (price + download size)
+- Upload longest side **1024 px**, JPEG ~0.72
+- Timeout **180 s** (slow links)
 
-- Camera — take a portrait for the studio headshot
-- Photo library add — save the finished image
-- Photo library — choose an existing portrait
+## Privacy and trust
 
-## Paste an API key (optional)
+- No key: the photo never leaves the iPhone.
+- With key: OpenAI receives the portrait to produce the studio photo. Said plainly in Settings.
+- No accounts, no ads, no tracking, no dark-pattern “free trial” screens.
 
-**App Store / TestFlight:** leave `AppConfig.openAIAPIKey` empty. In the app, open **Settings** (gear) and paste a key. It is stored in the Keychain on that device only.
-
-**Local debug:** you can still paste a key in `Headshot/App/AppConfig.swift`. Do not commit it. A compile-time key overrides Settings.
-
-```swift
-static let openAIAPIKey = ""
-```
-
-The app calls `POST /v1/images/edits` with:
-
-- `model`: `gpt-image-1`
-- `input_fidelity`: `high` (follow the input face closely)
-- `size`: `1024x1536`
-- `quality`: `high`
-- Prompt: identity lock — no facial-structure or identity change; only background, attire, lighting, grooming
-
-Your OpenAI account must be able to use `gpt-image-1`. If the API returns an error, the app shows it on the portrait card and leaves the original photo in place.
-
-To keep using the mock after a key is pasted, set `forceMockStudio = true` in the same file.
-
-**Do not commit a real key.** The placeholder is empty on purpose.
-
-## Identity rules
-
-The cloud prompt in `AppConfig.transformationPrompt` requires the model to keep the same person, bone structure, age, skin tone, and distinctive marks, and forbids reshaping the face. Combined with `input_fidelity=high`, that is the product rule: recognizable person, studio treatment only.
-
-The on-device path never generates a new face. It crops, composites, and grades the pixels you already have.
-
-## Privacy
-
-- **No key:** the photo stays on the device.
-- **With key:** the photo is uploaded to OpenAI to produce the edit. Do not use this path for photos you cannot send to a third party.
-
-App Store privacy nutrition labels and export-compliance answers (HTTPS only, `ITSAppUsesNonExemptEncryption = false`) are in [docs/APP_STORE.md](docs/APP_STORE.md). Cost and pricing math is in [docs/COSTS_AND_PRICING.md](docs/COSTS_AND_PRICING.md).
+App Store checklist: [docs/APP_STORE.md](docs/APP_STORE.md).  
+Emerging-market price math: [docs/COSTS_AND_PRICING.md](docs/COSTS_AND_PRICING.md).
 
 ## Project layout
 
 ```
-Headshot.xcodeproj          Xcode project + shared scheme
+Headshot.xcodeproj
 Headshot/
-  HeadshotApp.swift         App entry
-  Info.plist                Camera / Photos usage strings
-  App/AppConfig.swift       API key placeholder + identity prompt
-  App/APIKeyStore.swift     Keychain storage for the runtime key
-  Studio/                   Single-screen UI, settings, view model
-  Studio/                   Single-screen UI + view model
-  Capture/                  Camera picker + share sheet
-  Services/                 OpenAI client, mock studio, image helpers
-  Assets.xcassets           App icon + accent color
+  Localizable.xcstrings     EN / ES / PT / FR UI
+  InfoPlist.xcstrings       Camera / Photos permission copy
+  App/L10n.swift            Typed string keys
+  App/AppConfig.swift       Empty key + identity prompt + upload caps
+  Studio/                   Single screen
+  Services/                 On-device studio + OpenAI client
+docs/
+  APP_STORE.md
+  COSTS_AND_PRICING.md
 ```
-
-iPhone, portrait, iOS 17+. No extra packages.
 
 ## If something fails
 
 | Symptom | What to do |
 | --- | --- |
-| Signing error | Choose your team; unique bundle ID if needed |
-| Camera button alerts | Expected in Simulator — use Library |
-| “OpenAI rejected the API key” | Check the value in `AppConfig.swift` |
-| Billing / quota error | Check the OpenAI plan, or clear the key to use on-device |
-| Save fails | Enable Photos access, or use Share |
-
-This project was authored so it opens as a normal Xcode app on a Mac. There is no iOS simulator in the environment that produced it; run it locally to build and sign.
+| Signing error | Choose your team; unique bundle ID |
+| Camera alert | Expected in Simulator — use Photos |
+| Cloud key rejected | Check Settings |
+| Slow or failed cloud call | Wait or tap Try again; on-device studio needs no network |
+| Save fails | Enable Photos, or Share |
