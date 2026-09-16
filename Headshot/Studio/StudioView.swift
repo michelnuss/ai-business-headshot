@@ -34,8 +34,7 @@ struct StudioView: View {
             .photosPicker(
                 isPresented: $model.showLibrary,
                 selection: $model.pickerItem,
-                matching: .images,
-                photoLibrary: .shared()
+                matching: .images
             )
             .onChange(of: model.pickerItem) { _, item in
                 Task { await model.handlePickedItem(item) }
