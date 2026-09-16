@@ -12,7 +12,8 @@ struct ImportedImage: Transferable {
                 throw HeadshotError.invalidImage
             }
             return ImportedImage(image: image)
-        } exporting: { imported in
+        }
+        DataRepresentation(exportedContentType: .jpeg) { imported in
             imported.image.jpegData(compressionQuality: 0.92) ?? Data()
         }
     }
