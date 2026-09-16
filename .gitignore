@@ -25,6 +25,7 @@ playground.xcworkspace
 .env
 .env.*
 
-# Swift Package Manager
+# Local / agent scratch
+/agent-tools/
 .build/
 .swiftpm/xcode/package.xcworkspace/xcuserdata/
