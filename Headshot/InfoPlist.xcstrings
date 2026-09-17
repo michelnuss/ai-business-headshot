@@ -7,25 +7,25 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Headshot uses the camera to take a portrait for job, visa, and professional photos."
+            "value": "ProHeadshot AI uses the camera to take a portrait for job, visa, and LinkedIn photos."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Headshot usa la cámara para tomar un retrato para trabajo, visa o perfil profesional."
+            "value": "ProHeadshot AI usa la cámara para un retrato de trabajo, visa o LinkedIn."
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "O Headshot usa a câmera para um retrato de trabalho, visto ou perfil profissional."
+            "value": "O ProHeadshot AI usa a câmera para um retrato de trabalho, visto ou LinkedIn."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Headshot utilise l’appareil photo pour un portrait professionnel, visa ou candidature."
+            "value": "ProHeadshot AI utilise l’appareil photo pour un portrait professionnel, visa ou LinkedIn."
           }
         }
       }
@@ -36,25 +36,25 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Headshot saves the finished studio photo to your library."
+            "value": "ProHeadshot AI saves the finished studio photo to your library."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Headshot guarda la foto de estudio terminada en tu galería."
+            "value": "ProHeadshot AI guarda la foto de estudio terminada en tu galería."
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "O Headshot salva a foto de estúdio pronta na sua galeria."
+            "value": "O ProHeadshot AI salva a foto de estúdio pronta na sua galeria."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Headshot enregistre la photo studio dans votre bibliothèque."
+            "value": "ProHeadshot AI enregistre la photo studio dans votre bibliothèque."
           }
         }
       }
@@ -65,25 +65,25 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Headshot uses your photo library so you can choose a portrait to turn into a studio photo."
+            "value": "ProHeadshot AI uses your photo library so you can choose a portrait to turn into a studio photo."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Headshot usa tu galería para que elijas un retrato y lo convierta en foto de estudio."
+            "value": "ProHeadshot AI usa tu galería para que elijas un retrato y lo convierta en foto de estudio."
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "O Headshot usa sua galeria para você escolher um retrato e transformá-lo em foto de estúdio."
+            "value": "O ProHeadshot AI usa sua galeria para você escolher um retrato e transformá-lo em foto de estúdio."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Headshot utilise votre photothèque pour choisir un portrait à transformer."
+            "value": "ProHeadshot AI utilise votre photothèque pour choisir un portrait à transformer."
           }
         }
       }
@@ -94,25 +94,25 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Headshot"
+            "value": "ProHeadshot"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Headshot"
+            "value": "ProHeadshot"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Headshot"
+            "value": "ProHeadshot"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Headshot"
+            "value": "ProHeadshot"
           }
         }
       }

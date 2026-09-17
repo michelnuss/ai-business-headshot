@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDisplayName</key>
-	<string>Headshot</string>
+	<string>ProHeadshot</string>
 	<key>CFBundleLocalizations</key>
 	<array>
 		<string>en</string>
@@ -14,11 +14,11 @@
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>NSCameraUsageDescription</key>
-	<string>Headshot uses the camera to take a portrait for job, visa, and professional photos.</string>
+	<string>ProHeadshot AI uses the camera to take a portrait for job, visa, and LinkedIn photos.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Headshot saves the finished studio photo to your library.</string>
+	<string>ProHeadshot AI saves the finished studio photo to your library.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Headshot uses your photo library so you can choose a portrait to turn into a studio photo.</string>
+	<string>ProHeadshot AI uses your photo library so you can choose a portrait to turn into a studio photo.</string>
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIColorName</key>

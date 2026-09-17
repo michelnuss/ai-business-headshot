@@ -4,15 +4,21 @@
 import json
 from pathlib import Path
 
-ROOT = Path("/workspace/Headshot")
+ROOT = Path(__file__).resolve().parents[1] / "Headshot"
 
 # key: {lang: value}
 STRINGS = {
     "studio.title": {
-        "en": "Headshot",
-        "es": "Headshot",
-        "pt": "Headshot",
-        "fr": "Headshot",
+        "en": "ProHeadshot AI",
+        "es": "ProHeadshot AI",
+        "pt": "ProHeadshot AI",
+        "fr": "ProHeadshot AI",
+    },
+    "studio.tagline": {
+        "en": "Studio photos for jobs, visas, and LinkedIn",
+        "es": "Fotos de estudio para trabajo, visas y LinkedIn",
+        "pt": "Fotos de estúdio para vagas, vistos e LinkedIn",
+        "fr": "Photos studio pour emplois, visas et LinkedIn",
     },
     "studio.startOver": {
         "en": "Start over",
@@ -99,22 +105,52 @@ STRINGS = {
         "fr": "Studio sur cet iPhone",
     },
     "studio.empty.title": {
-        "en": "Take a photo or choose one",
-        "es": "Toma una foto o elige una",
-        "pt": "Tire uma foto ou escolha uma",
-        "fr": "Prenez une photo ou choisissez-en une",
+        "en": "Add a photo",
+        "es": "Añade una foto",
+        "pt": "Adicione uma foto",
+        "fr": "Ajoutez une photo",
     },
     "studio.empty.body": {
-        "en": "For job applications, visas, and professional profiles. The studio keeps you looking like you.",
-        "es": "Para postulaciones de trabajo, visas y perfiles profesionales. El estudio te deja viéndote como tú.",
-        "pt": "Para candidaturas, vistos e perfis profissionais. O estúdio mantém a sua cara.",
-        "fr": "Pour les candidatures, visas et profils professionnels. Le studio vous laisse ressembler à vous-même.",
+        "en": "Lighting and background change. Your face stays yours.",
+        "es": "Cambian luz y fondo. Tu cara sigue siendo tuya.",
+        "pt": "Mudam luz e fundo. O seu rosto continua o mesmo.",
+        "fr": "Lumière et fond changent. Votre visage reste le vôtre.",
+    },
+    "studio.use.jobs": {
+        "en": "Jobs",
+        "es": "Empleo",
+        "pt": "Vagas",
+        "fr": "Emploi",
+    },
+    "studio.use.visas": {
+        "en": "Visas",
+        "es": "Visas",
+        "pt": "Vistos",
+        "fr": "Visas",
+    },
+    "studio.use.linkedin": {
+        "en": "LinkedIn",
+        "es": "LinkedIn",
+        "pt": "LinkedIn",
+        "fr": "LinkedIn",
+    },
+    "studio.trust.noUpload": {
+        "en": "No photo is uploaded",
+        "es": "No se sube la foto",
+        "pt": "Nenhuma foto é enviada",
+        "fr": "Aucune photo n’est envoyée",
+    },
+    "studio.trust.identity": {
+        "en": "You still look like you",
+        "es": "Sigues viéndote como tú",
+        "pt": "Você continua você",
+        "fr": "Vous restez vous-même",
     },
     "studio.caption.empty": {
-        "en": "Lighting, background, and clothes only. Your face stays yours.",
-        "es": "Solo luz, fondo y ropa. Tu cara no cambia.",
-        "pt": "Só luz, fundo e roupa. O seu rosto continua o mesmo.",
-        "fr": "Lumière, fond et vêtements seulement. Votre visage reste le vôtre.",
+        "en": "On this iPhone by default. Lighting, background, and clothes only.",
+        "es": "En este iPhone por defecto. Solo luz, fondo y ropa.",
+        "pt": "Neste iPhone por padrão. Só luz, fundo e roupa.",
+        "fr": "Sur cet iPhone par défaut. Lumière, fond et vêtements seulement.",
     },
     "studio.caption.ready": {
         "en": "Face the camera in good light. A simple snapshot is enough.",
@@ -390,28 +426,28 @@ STRINGS = {
 
 INFO = {
     "NSCameraUsageDescription": {
-        "en": "Headshot uses the camera to take a portrait for job, visa, and professional photos.",
-        "es": "Headshot usa la cámara para tomar un retrato para trabajo, visa o perfil profesional.",
-        "pt": "O Headshot usa a câmera para um retrato de trabalho, visto ou perfil profissional.",
-        "fr": "Headshot utilise l’appareil photo pour un portrait professionnel, visa ou candidature.",
+        "en": "ProHeadshot AI uses the camera to take a portrait for job, visa, and LinkedIn photos.",
+        "es": "ProHeadshot AI usa la cámara para un retrato de trabajo, visa o LinkedIn.",
+        "pt": "O ProHeadshot AI usa a câmera para um retrato de trabalho, visto ou LinkedIn.",
+        "fr": "ProHeadshot AI utilise l’appareil photo pour un portrait professionnel, visa ou LinkedIn.",
     },
     "NSPhotoLibraryAddUsageDescription": {
-        "en": "Headshot saves the finished studio photo to your library.",
-        "es": "Headshot guarda la foto de estudio terminada en tu galería.",
-        "pt": "O Headshot salva a foto de estúdio pronta na sua galeria.",
-        "fr": "Headshot enregistre la photo studio dans votre bibliothèque.",
+        "en": "ProHeadshot AI saves the finished studio photo to your library.",
+        "es": "ProHeadshot AI guarda la foto de estudio terminada en tu galería.",
+        "pt": "O ProHeadshot AI salva a foto de estúdio pronta na sua galeria.",
+        "fr": "ProHeadshot AI enregistre la photo studio dans votre bibliothèque.",
     },
     "NSPhotoLibraryUsageDescription": {
-        "en": "Headshot uses your photo library so you can choose a portrait to turn into a studio photo.",
-        "es": "Headshot usa tu galería para que elijas un retrato y lo convierta en foto de estudio.",
-        "pt": "O Headshot usa sua galeria para você escolher um retrato e transformá-lo em foto de estúdio.",
-        "fr": "Headshot utilise votre photothèque pour choisir un portrait à transformer.",
+        "en": "ProHeadshot AI uses your photo library so you can choose a portrait to turn into a studio photo.",
+        "es": "ProHeadshot AI usa tu galería para que elijas un retrato y lo convierta en foto de estudio.",
+        "pt": "O ProHeadshot AI usa sua galeria para você escolher um retrato e transformá-lo em foto de estúdio.",
+        "fr": "ProHeadshot AI utilise votre photothèque pour choisir un portrait à transformer.",
     },
     "CFBundleDisplayName": {
-        "en": "Headshot",
-        "es": "Headshot",
-        "pt": "Headshot",
-        "fr": "Headshot",
+        "en": "ProHeadshot",
+        "es": "ProHeadshot",
+        "pt": "ProHeadshot",
+        "fr": "ProHeadshot",
     },
 }
 

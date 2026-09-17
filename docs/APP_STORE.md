@@ -22,7 +22,7 @@ Localizations shipped: English, Spanish, Portuguese, French (system language). S
 
 | Setting | Value | Where |
 | --- | --- | --- |
-| Display name | Headshot | `INFOPLIST_KEY_CFBundleDisplayName` + `Info.plist` |
+| Display name | ProHeadshot | `INFOPLIST_KEY_CFBundleDisplayName` + `Info.plist` |
 | Bundle ID placeholder | `com.yourcompany.headshot` | target build settings |
 | Marketing version | `1.0.0` | `MARKETING_VERSION` |
 | Build | `1` | `CURRENT_PROJECT_VERSION` |
@@ -33,7 +33,7 @@ Localizations shipped: English, Spanish, Portuguese, French (system language). S
 | Mac Catalyst / iPad | Off | build settings |
 | Push | None | no entitlement |
 | Encryption export | HTTPS only, non-exempt = NO | `ITSAppUsesNonExemptEncryption` |
-| App icon | 1024×1024 `AppIcon.appiconset` | drop a final PNG over `AppIcon.png` (no alpha, no rounded mask) |
+| App icon | 1024×1024 `AppIcon.appiconset` | `Headshot/Assets.xcassets/AppIcon.appiconset/AppIcon.png` (storefront export: `Marketing/AppIcon-1024.png`; no alpha, no rounded mask) |
 | Launch screen | `LaunchBackground` + `LaunchMark` | replace mark with final logo |
 | Camera / Photos strings | Present | `Headshot/Info.plist` |
 | Privacy manifest | Photos for app functionality, no tracking | `PrivacyInfo.xcprivacy` |
@@ -119,12 +119,11 @@ Built for slower networks and older iPhones (iOS 17 / iPhone XS class and newer)
 ## 7. Human setup that this repo cannot do
 
 1. Pick a real bundle ID and Apple Team.
-2. Replace `AppIcon.png` (1024×1024, square, no transparency) and `LaunchMark.png`.
-3. Privacy policy + support URL.
-4. Screenshots from a Retina iPhone or simulator.
-5. Age rating (suggest 4+; no unrestricted web, no user-generated social).
-6. If you later add **paid credits**: App Store In-App Purchase (consumable or subscription), StoreKit 2, and a privacy/ToS update. That is not in this build.
-7. If you later add a **shared** model key: a tiny HTTPS backend. Do not embed the key.
+2. Privacy policy + support URL.
+3. Screenshots from a Retina iPhone or simulator.
+4. Age rating (suggest 4+; no unrestricted web, no user-generated social).
+5. If you later add **paid credits**: App Store In-App Purchase (consumable or subscription), StoreKit 2, and a privacy/ToS update. That is not in this build.
+6. If you later add a **shared** model key: a tiny HTTPS backend. Do not embed the key.
 
 ## 8. Review risk notes
 

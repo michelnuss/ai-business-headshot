@@ -1,4 +1,4 @@
-# Headshot
+# ProHeadshot AI
 
 A professional studio photo from a phone snapshot — for **job applications, visas, and professional profiles**. Built for people in Africa, South America, and similar markets who need a formal photo without a studio or expensive AI apps.
 
@@ -10,7 +10,7 @@ Open `Headshot.xcodeproj` on a Mac. No API key is required. The full flow runs o
 
 - Job and internship applications
 - Visas and other official photos
-- Company directories and professional profiles
+- LinkedIn, company directories, and professional profiles
 
 Not a beauty filter. Copy, pricing, and network use assume slower connections, older iPhones, and low IAP prices — not a US/EU-first product.
 
@@ -70,6 +70,8 @@ Headshot/
 docs/
   APP_STORE.md
   COSTS_AND_PRICING.md
+Marketing/
+  AppIcon-1024.png          App Store 1024×1024 (no alpha)
 ```
 
 ## If something fails

@@ -2,7 +2,14 @@ import Foundation
 
 /// All user-facing copy. English is the defaultValue; translations live in Localizable.xcstrings.
 enum L10n {
-    static var appName: String { String(localized: "studio.title", defaultValue: "Headshot") }
+    static var appName: String { String(localized: "studio.title", defaultValue: "ProHeadshot AI") }
+
+    static var tagline: String {
+        String(
+            localized: "studio.tagline",
+            defaultValue: "Studio photos for jobs, visas, and LinkedIn"
+        )
+    }
 
     static var startOver: String { String(localized: "studio.startOver", defaultValue: "Start over") }
     static var settings: String { String(localized: "studio.settings", defaultValue: "Settings") }
@@ -21,19 +28,30 @@ enum L10n {
     static var modeDeviceA11y: String { String(localized: "studio.mode.device.a11y", defaultValue: "Using studio on this iPhone") }
 
     static var emptyTitle: String {
-        String(localized: "studio.empty.title", defaultValue: "Take a photo or choose one")
+        String(localized: "studio.empty.title", defaultValue: "Add a photo")
     }
     static var emptyBody: String {
         String(
             localized: "studio.empty.body",
-            defaultValue: "For job applications, visas, and professional profiles. The studio keeps you looking like you."
+            defaultValue: "Lighting and background change. Your face stays yours."
         )
+    }
+
+    static var useJobs: String { String(localized: "studio.use.jobs", defaultValue: "Jobs") }
+    static var useVisas: String { String(localized: "studio.use.visas", defaultValue: "Visas") }
+    static var useLinkedIn: String { String(localized: "studio.use.linkedin", defaultValue: "LinkedIn") }
+
+    static var trustNoUpload: String {
+        String(localized: "studio.trust.noUpload", defaultValue: "No photo is uploaded")
+    }
+    static var trustIdentity: String {
+        String(localized: "studio.trust.identity", defaultValue: "You still look like you")
     }
 
     static var captionEmpty: String {
         String(
             localized: "studio.caption.empty",
-            defaultValue: "Lighting, background, and clothes only. Your face stays yours."
+            defaultValue: "On this iPhone by default. Lighting, background, and clothes only."
         )
     }
     static var captionReady: String {
