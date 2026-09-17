@@ -29,3 +29,6 @@ playground.xcworkspace
 /agent-tools/
 .build/
 .swiftpm/xcode/package.xcworkspace/xcuserdata/
+
+# Local xcodebuild derived data
+.derivedData/

@@ -7,25 +7,54 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Headshot"
+            "value": "ProHeadshot AI"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Headshot"
+            "value": "ProHeadshot AI"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Headshot"
+            "value": "ProHeadshot AI"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Headshot"
+            "value": "ProHeadshot AI"
+          }
+        }
+      }
+    },
+    "studio.tagline": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Studio photos for jobs, visas, and LinkedIn"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fotos de estudio para trabajo, visas y LinkedIn"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fotos de estúdio para vagas, vistos e LinkedIn"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Photos studio pour emplois, visas et LinkedIn"
           }
         }
       }
@@ -442,25 +471,25 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Take a photo or choose one"
+            "value": "Add a photo"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Toma una foto o elige una"
+            "value": "Añade una foto"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tire uma foto ou escolha uma"
+            "value": "Adicione uma foto"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Prenez une photo ou choisissez-en une"
+            "value": "Ajoutez une photo"
           }
         }
       }
@@ -471,25 +500,170 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "For job applications, visas, and professional profiles. The studio keeps you looking like you."
+            "value": "Lighting and background change. Your face stays yours."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Para postulaciones de trabajo, visas y perfiles profesionales. El estudio te deja viéndote como tú."
+            "value": "Cambian luz y fondo. Tu cara sigue siendo tuya."
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Para candidaturas, vistos e perfis profissionais. O estúdio mantém a sua cara."
+            "value": "Mudam luz e fundo. O seu rosto continua o mesmo."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pour les candidatures, visas et profils professionnels. Le studio vous laisse ressembler à vous-même."
+            "value": "Lumière et fond changent. Votre visage reste le vôtre."
+          }
+        }
+      }
+    },
+    "studio.use.jobs": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jobs"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Empleo"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vagas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Emploi"
+          }
+        }
+      }
+    },
+    "studio.use.visas": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Visas"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Visas"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vistos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Visas"
+          }
+        }
+      }
+    },
+    "studio.use.linkedin": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LinkedIn"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LinkedIn"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LinkedIn"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LinkedIn"
+          }
+        }
+      }
+    },
+    "studio.trust.noUpload": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No photo is uploaded"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se sube la foto"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhuma foto é enviada"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucune photo n’est envoyée"
+          }
+        }
+      }
+    },
+    "studio.trust.identity": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You still look like you"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sigues viéndote como tú"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Você continua você"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vous restez vous-même"
           }
         }
       }
@@ -500,25 +674,25 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lighting, background, and clothes only. Your face stays yours."
+            "value": "On this iPhone by default. Lighting, background, and clothes only."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Solo luz, fondo y ropa. Tu cara no cambia."
+            "value": "En este iPhone por defecto. Solo luz, fondo y ropa."
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Só luz, fundo e roupa. O seu rosto continua o mesmo."
+            "value": "Neste iPhone por padrão. Só luz, fundo e roupa."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lumière, fond et vêtements seulement. Votre visage reste le vôtre."
+            "value": "Sur cet iPhone par défaut. Lumière, fond et vêtements seulement."
           }
         }
       }
